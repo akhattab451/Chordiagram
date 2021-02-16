@@ -13,7 +13,15 @@ import com.example.chordiagram.databinding.ConverterFragmentBinding
 class ConvertFragment : Fragment() {
 
     companion object {
-        fun newInstance() = ConvertFragment()
+        private var INSTANCE : ConvertFragment? = null
+
+        fun getInstance() : ConvertFragment {
+
+            if (INSTANCE == null)
+                INSTANCE = ConvertFragment()
+
+            return INSTANCE!!
+        }
     }
 
     private lateinit var convertViewModel: ConvertViewModel

@@ -15,8 +15,8 @@ class SectionsStateAdapter(fm : FragmentManager, lifecycle: Lifecycle)
     override fun createFragment(position: Int): Fragment {
 
         return when(position) {
-            0 -> ConvertFragment.newInstance()
-            else -> ChordsFragment.newInstance()
+            0 -> ConvertFragment.getInstance()
+            else -> ChordsFragment.getInstance()
         }
 
     }

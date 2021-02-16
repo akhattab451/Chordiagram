@@ -8,11 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.chordiagram.R
 import com.example.chordiagram.databinding.ChordsFragmentBinding
+import com.example.chordiagram.ui.convert.ConvertFragment
 
 class ChordsFragment : Fragment() {
 
     companion object {
-        fun newInstance() = ChordsFragment()
+        private var INSTANCE : ChordsFragment? = null
+
+        fun getInstance() : ChordsFragment {
+
+            if (INSTANCE == null)
+                INSTANCE = ChordsFragment()
+
+            return INSTANCE!!
+        }
     }
 
     private lateinit var viewModel: ChordsViewModel
@@ -21,7 +30,7 @@ class ChordsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = ChordsFragmentBinding.inflate(inflater)
         return binding.root
     }

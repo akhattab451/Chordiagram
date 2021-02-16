@@ -21,8 +21,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val sectionsPagerAdapter = SectionsStateAdapter(supportFragmentManager, lifecycle)
-        binding.viewPager.adapter = sectionsPagerAdapter
+        val sectionsStateAdapter = SectionsStateAdapter(supportFragmentManager, lifecycle)
+        binding.viewPager.adapter = sectionsStateAdapter
 
         TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
             tab.text = getString(titles[position])
