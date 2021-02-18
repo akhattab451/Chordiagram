@@ -3,14 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.convert.ConvertFragment">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Converter" />
-    </FrameLayout>
+    <EditText
+        android:gravity="top|start"
+        android:padding="24dp"
+        android:id="@+id/convert_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="@string/conversion_hint"
+        android:background="@null"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_convert"
+        android:contentDescription="@string/convert" />
+
+</FrameLayout>
+
+
 </layout>

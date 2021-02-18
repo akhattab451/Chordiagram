@@ -2,6 +2,7 @@
     <string name="app_name">Chordiagram</string>
     <string name="converter_tab_text">Converter</string>
     <string name="chords_tab_text">All Chords</string>
-    <string name="convert">Convert</string>
     <string name="chord_diagram">Chord Diagram</string>
+    <string name="conversion_hint">Enter the chords you want to convert.\n\nC A7 Dm G C Cmaj7</string>
+    <string name="convert">Convert</string>
 </resources>
