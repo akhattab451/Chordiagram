@@ -1,14 +1,14 @@
 package com.example.chordiagram.ui.chords
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.chordiagram.R
 import com.example.chordiagram.databinding.ChordsFragmentBinding
-import com.example.chordiagram.ui.convert.ConvertFragment
+
 
 class ChordsFragment : Fragment() {
 
@@ -32,12 +32,12 @@ class ChordsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = ChordsFragmentBinding.inflate(inflater)
-        return binding.root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ChordsViewModel::class.java)
+
+
+
+
+        return binding.root
     }
 
 }
