@@ -7,7 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.chordiagram.R
+import com.example.chordiagram.database.Chordbase
 import com.example.chordiagram.databinding.ChordsFragmentBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class ChordsFragment : Fragment() {
@@ -24,18 +28,22 @@ class ChordsFragment : Fragment() {
         }
     }
 
-    private lateinit var viewModel: ChordsViewModel
-    private lateinit var binding: ChordsFragmentBinding
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = ChordsFragmentBinding.inflate(inflater)
-        viewModel = ViewModelProvider(this).get(ChordsViewModel::class.java)
 
+        val binding = ChordsFragmentBinding.inflate(inflater)
 
+        val application = requireNotNull(activity).application
 
+        val viewModelFactory = ChordsViewModelFactory(application)
+        val viewModel = ViewModelProvider(this, viewModelFactory).get(ChordsViewModel::class.java)
+
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
+        binding.chordList.adapter = ChordsAdapter()
 
         return binding.root
     }

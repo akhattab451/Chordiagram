@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [Chord::class], version = 1)
+@Database(entities = [Chord::class], version = 1, exportSchema = false)
 abstract class Chordbase : RoomDatabase() {
     abstract val chordDao: ChordDao
 
@@ -22,9 +22,12 @@ abstract class Chordbase : RoomDatabase() {
 
                 if (instance == null) {
                     instance =
-                        Room.databaseBuilder(context.applicationContext, Chordbase::class.java, "chordigram.db")
-                            .createFromAsset("assets/chordigram.db")
+                        Room.databaseBuilder(context.applicationContext, Chordbase::class.java, "chordiagram_db")
+                            .createFromAsset("chordiagram.db")
+                            .fallbackToDestructiveMigration()
                             .build()
+
+                    INSTANCE = instance
                 }
                 instance
             }

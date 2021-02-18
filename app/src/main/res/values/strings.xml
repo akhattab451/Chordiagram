@@ -3,4 +3,5 @@
     <string name="converter_tab_text">Converter</string>
     <string name="chords_tab_text">All Chords</string>
     <string name="convert">Convert</string>
+    <string name="chord_diagram">Chord Diagram</string>
 </resources>

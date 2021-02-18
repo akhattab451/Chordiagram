@@ -7,6 +7,6 @@ import androidx.room.Query
 interface ChordDao {
 
     @Query("SELECT * FROM chords")
-    fun getAllChords() : List<Chord>
+    suspend fun getAllChords() : List<Chord>
 
 }
