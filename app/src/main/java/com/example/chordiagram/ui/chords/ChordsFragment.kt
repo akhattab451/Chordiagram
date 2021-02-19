@@ -40,4 +40,6 @@ class ChordsFragment : Fragment() {
         return binding.root
     }
 
+
+
 }

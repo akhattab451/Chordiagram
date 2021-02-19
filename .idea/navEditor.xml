@@ -18,13 +18,13 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="133" />
-                            <option name="y" value="-239" />
+                            <option name="x" value="269" />
+                            <option name="y" value="-718" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_chordsFragment_to_convertFragment">
+                            <entry key="action_chordsFragment_to_tabsFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -34,14 +34,23 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="convertFragment">
+                  <entry key="tabsFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-195" />
-                            <option name="y" value="-237" />
+                            <option name="x" value="596" />
+                            <option name="y" value="-705" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_tabsFragment_to_chordsFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>

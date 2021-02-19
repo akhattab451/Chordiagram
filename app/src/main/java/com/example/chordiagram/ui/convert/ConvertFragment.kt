@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.chordiagram.NavigationDirections
 import com.example.chordiagram.R
+import com.example.chordiagram.Utils
 import com.example.chordiagram.databinding.ConvertFragmentBinding
 
 
@@ -40,6 +41,7 @@ class ConvertFragment : Fragment() {
                 if (text.isNotBlank())
                     findNavController().navigate(NavigationDirections.actionGlobalChordsFragment(text))
 
+                Utils.hideKeyboard(requireActivity())
                 convertViewModel.navigateToChordsCompleted()
             }
         })

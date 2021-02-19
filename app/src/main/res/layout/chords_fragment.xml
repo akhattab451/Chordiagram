@@ -9,9 +9,6 @@
             type="com.example.chordiagram.ui.chords.ChordsViewModel" />
     </data>
 
-<FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chord_list"
         android:layout_width="match_parent"
@@ -22,9 +19,4 @@
         app:spanCount="4"
         tools:itemCount="35"
         tools:listitem="@layout/chord_list_item"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@{viewModel.requestString}"/>
-</FrameLayout>
 </layout>

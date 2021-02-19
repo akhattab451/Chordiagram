@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/convertFragment">
+    app:startDestination="@id/tabsFragment">
 
     <fragment
         android:id="@+id/chordsFragment"
@@ -14,16 +14,20 @@
             android:name="chordString"
             app:argType="string" />
         <action
-            android:id="@+id/action_chordsFragment_to_convertFragment"
-            app:destination="@id/convertFragment"
-            app:popUpTo="@id/convertFragment" />
+            android:id="@+id/action_chordsFragment_to_tabsFragment"
+            app:destination="@id/tabsFragment"
+            app:popUpTo="@id/tabsFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/convertFragment"
-        android:name="com.example.chordiagram.ui.convert.ConvertFragment"
-        android:label="convert_fragment"
-        tools:layout="@layout/convert_fragment" />
     <action
         android:id="@+id/action_global_chordsFragment"
         app:destination="@id/chordsFragment" />
+    <fragment
+        android:id="@+id/tabsFragment"
+        android:name="com.example.chordiagram.ui.tabs.TabsFragment"
+        android:label="tabs_fragment"
+        tools:layout="@layout/tabs_fragment" >
+        <action
+            android:id="@+id/action_tabsFragment_to_chordsFragment"
+            app:destination="@id/chordsFragment" />
+    </fragment>
 </navigation>

@@ -2,6 +2,7 @@ package com.example.chordiagram.ui.chords
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.example.chordiagram.Utils
 import com.example.chordiagram.database.Chord
 import com.example.chordiagram.database.Chordbase
 import kotlinx.coroutines.launch
@@ -14,8 +15,6 @@ class ChordsViewModel(private val app: Application, private val chordsString: St
     val chords: LiveData<List<Chord>>
         get() = _chords
 
-    val requestString = chordsString
-
     init {
         viewModelScope.launch {
 
@@ -23,10 +22,9 @@ class ChordsViewModel(private val app: Application, private val chordsString: St
                 if (chordsString.isEmpty())
                     it.getAllChords()
                 else
-                    it.getRequestedChords(chordsString.split(" ").toList())
+                    it.getRequestedChords(Utils.splitToChords(chordsString))
 
             }
-
         }
     }
 }
