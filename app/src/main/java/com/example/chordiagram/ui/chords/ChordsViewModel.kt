@@ -4,30 +4,40 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.example.chordiagram.database.Chord
 import com.example.chordiagram.database.Chordbase
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.lang.IllegalArgumentException
 
-class ChordsViewModel (private val app: Application) : ViewModel() {
+class ChordsViewModel(private val app: Application, private val chordsString: String) :
+    ViewModel() {
 
     private val _chords = MutableLiveData<List<Chord>>()
-    val chords : LiveData<List<Chord>>
+    val chords: LiveData<List<Chord>>
         get() = _chords
 
-    init {
+    val requestString = chordsString
 
+    init {
         viewModelScope.launch {
-            _chords.value = Chordbase.getInstance(app.applicationContext).chordDao.getAllChords()
+
+            _chords.value = Chordbase.getInstance(app.applicationContext).chordDao.let {
+                if (chordsString.isEmpty())
+                    it.getAllChords()
+                else
+                    it.getRequestedChords(chordsString.split(" ").toList())
+
+            }
+
         }
     }
 }
 
-class ChordsViewModelFactory (private val app: Application) : ViewModelProvider.Factory {
+
+class ChordsViewModelFactory(private val app: Application, private val chordsString: String) :
+    ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
 
         if (modelClass.isAssignableFrom(ChordsViewModel::class.java))
-            return ChordsViewModel(app) as T
+            return ChordsViewModel(app, chordsString) as T
 
         throw IllegalArgumentException("Unrecognized ViewModel")
     }

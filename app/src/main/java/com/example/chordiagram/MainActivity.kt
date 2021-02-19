@@ -1,7 +1,9 @@
 package com.example.chordiagram
 
 import android.os.Bundle
+
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.example.chordiagram.databinding.ActivityMainBinding
 import com.example.chordiagram.ui.SectionsStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
@@ -13,13 +15,11 @@ class MainActivity : AppCompatActivity() {
         R.string.chords_tab_text
     )
 
-    private lateinit var binding: ActivityMainBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        val binding =
+            DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
         val sectionsStateAdapter = SectionsStateAdapter(supportFragmentManager, lifecycle)
         binding.viewPager.adapter = sectionsStateAdapter
@@ -27,5 +27,10 @@ class MainActivity : AppCompatActivity() {
         TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
             tab.text = getString(titles[position])
         }.attach()
+
     }
+
+
 }
+
+
