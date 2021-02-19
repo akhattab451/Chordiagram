@@ -4,36 +4,50 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.chordiagram.NavigationDirections
 import com.example.chordiagram.R
-import com.example.chordiagram.databinding.ConverterFragmentBinding
+import com.example.chordiagram.Utils
+import com.example.chordiagram.databinding.ConvertFragmentBinding
+
 
 class ConvertFragment : Fragment() {
 
     companion object {
-        private var INSTANCE : ConvertFragment? = null
-
-        fun getInstance() : ConvertFragment {
-
-            if (INSTANCE == null)
-                INSTANCE = ConvertFragment()
-
-            return INSTANCE!!
+        fun newInstance() : ConvertFragment {
+            return ConvertFragment()
         }
     }
-
-    private lateinit var convertViewModel: ConvertViewModel
-    private lateinit var binding: ConverterFragmentBinding
-
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
-        binding = ConverterFragmentBinding.inflate(inflater)
+
+        val binding = ConvertFragmentBinding.inflate(inflater)
+        val convertViewModel = ViewModelProvider(this).get(ConvertViewModel::class.java)
+
+        binding.lifecycleOwner = this
+
+        binding.convertFab.setOnClickListener {
+            convertViewModel.navigateToChords()
+        }
+
+        convertViewModel.eventNavigateToChords.observe(viewLifecycleOwner, {
+            if (it) {
+                val text = binding.convertEditText.text.toString()
+
+                if (text.isNotBlank())
+                    findNavController().navigate(NavigationDirections.actionGlobalChordsFragment(text))
+
+                Utils.hideKeyboard(requireActivity())
+                convertViewModel.navigateToChordsCompleted()
+            }
+        })
 
         return binding.root
     }
 
 }
+

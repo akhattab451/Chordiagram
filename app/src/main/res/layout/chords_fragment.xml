@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.chords.ChordsFragment">
-    <FrameLayout
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.chordiagram.ui.chords.ChordsViewModel" />
+    </data>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chord_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Chords" />
-    </FrameLayout>
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        app:chordList="@{viewModel.chords}"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="4"
+        tools:itemCount="35"
+        tools:listitem="@layout/chord_list_item"/>
 </layout>
