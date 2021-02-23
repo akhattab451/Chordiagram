@@ -15,16 +15,25 @@ class ChordsViewModel(private val app: Application, private val chordsString: St
     val chords: LiveData<List<Chord>>
         get() = _chords
 
-    init {
-        viewModelScope.launch {
+    private val _empty = MutableLiveData<Boolean>()
+    val empty: LiveData<Boolean>
+        get() = _empty
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean>
+        get() = _loading
+
+    init {
+        _loading.value = true
+        viewModelScope.launch {
             _chords.value = Chordbase.getInstance(app.applicationContext).chordDao.let {
                 if (chordsString.isEmpty())
                     it.getAllChords()
                 else
                     it.getRequestedChords(Utils.splitToChords(chordsString))
-
             }
+            _loading.value = false
+            _empty.value = _chords.value.isNullOrEmpty()
         }
     }
 }

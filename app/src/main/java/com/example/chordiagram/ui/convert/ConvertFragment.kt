@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.chordiagram.NavigationDirections
-import com.example.chordiagram.R
 import com.example.chordiagram.Utils
 import com.example.chordiagram.databinding.ConvertFragmentBinding
 
