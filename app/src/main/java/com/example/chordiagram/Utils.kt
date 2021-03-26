@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
+import java.util.*
 
 class Utils private constructor(){
     companion object {
@@ -20,7 +21,10 @@ class Utils private constructor(){
         }
 
         fun splitToChords(chords : String) : List<String> {
-            return chords.split(" ").toList()
+
+            return chords.split(" ").toMutableList().map {
+                it.capitalize(Locale.ROOT)
+            }
         }
     }
 
