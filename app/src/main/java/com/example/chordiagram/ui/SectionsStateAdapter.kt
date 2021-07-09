@@ -7,8 +7,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.chordiagram.ui.chords.ChordsFragment
 import com.example.chordiagram.ui.convert.ConvertFragment
 
-class SectionsStateAdapter(fm: FragmentManager, lifecycle: Lifecycle)
-    : FragmentStateAdapter(fm, lifecycle) {
+class SectionsStateAdapter(fragment: Fragment)
+    : FragmentStateAdapter(fragment) {
 
 
     override fun getItemCount(): Int = 2

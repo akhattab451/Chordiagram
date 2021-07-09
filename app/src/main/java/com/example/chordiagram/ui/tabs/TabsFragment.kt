@@ -10,25 +10,20 @@ import com.example.chordiagram.databinding.TabsFragmentBinding
 import com.example.chordiagram.ui.SectionsStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
-class TabsFragment : Fragment() {
+class TabsFragment : Fragment(R.layout.tabs_fragment) {
     private val titles = arrayOf(
         R.string.converter_tab_text,
         R.string.chords_tab_text)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-            val binding = TabsFragmentBinding.inflate(inflater)
+        val binding = TabsFragmentBinding.bind(view)
+        val sectionsStateAdapter = SectionsStateAdapter(this)
+        binding.viewPager.adapter = sectionsStateAdapter
 
-            val sectionsStateAdapter = SectionsStateAdapter(childFragmentManager, lifecycle)
-            binding.viewPager.adapter = sectionsStateAdapter
-
-            TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
-                tab.text = getString(titles[position])
-            }.attach()
-
-        return binding.root
+        TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
+            tab.text = getString(titles[position])
+        }.attach()
     }
 }

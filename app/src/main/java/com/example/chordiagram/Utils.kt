@@ -20,12 +20,7 @@ class Utils private constructor(){
             }
         }
 
-        fun splitToChords(chords : String) : List<String> {
 
-            return chords.split(" ").toMutableList().map {
-                it.capitalize(Locale.ROOT)
-            }
-        }
     }
 
 }

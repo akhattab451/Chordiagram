@@ -18,18 +18,9 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="269" />
-                            <option name="y" value="-718" />
+                            <option name="x" value="502" />
+                            <option name="y" value="-692" />
                           </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_chordsFragment_to_tabsFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -39,8 +30,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="596" />
-                            <option name="y" value="-705" />
+                            <option name="x" value="221" />
+                            <option name="y" value="-665" />
                           </Point>
                         </option>
                         <option name="myPositions">

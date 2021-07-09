@@ -8,15 +8,11 @@
     <fragment
         android:id="@+id/chordsFragment"
         android:name="com.example.chordiagram.ui.chords.ChordsFragment"
-        android:label="chords_fragment"
-        tools:layout="@layout/chords_fragment" >
+        android:label="Chords"
+        tools:layout="@layout/chords_fragment">
         <argument
             android:name="chordString"
             app:argType="string" />
-        <action
-            android:id="@+id/action_chordsFragment_to_tabsFragment"
-            app:destination="@id/tabsFragment"
-            app:popUpTo="@id/tabsFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_chordsFragment"
@@ -24,10 +20,13 @@
     <fragment
         android:id="@+id/tabsFragment"
         android:name="com.example.chordiagram.ui.tabs.TabsFragment"
-        android:label="tabs_fragment"
-        tools:layout="@layout/tabs_fragment" >
+        android:label="Chordiagram"
+        tools:layout="@layout/tabs_fragment">
         <action
             android:id="@+id/action_tabsFragment_to_chordsFragment"
-            app:destination="@id/chordsFragment" />
+            app:destination="@id/chordsFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/tabsFragment"
+            app:popUpToInclusive="false" />
     </fragment>
 </navigation>

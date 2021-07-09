@@ -8,26 +8,24 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.chordiagram.NavigationDirections
+import com.example.chordiagram.R
 import com.example.chordiagram.Utils
 import com.example.chordiagram.databinding.ConvertFragmentBinding
 
 
-class ConvertFragment : Fragment() {
+class ConvertFragment : Fragment(R.layout.convert_fragment) {
 
     companion object {
         fun newInstance() : ConvertFragment {
             return ConvertFragment()
         }
     }
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
 
-        val binding = ConvertFragmentBinding.inflate(inflater)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val binding = ConvertFragmentBinding.bind(view)
         val convertViewModel = ViewModelProvider(this).get(ConvertViewModel::class.java)
-
-        binding.lifecycleOwner = this
 
         binding.convertFab.setOnClickListener {
             convertViewModel.navigateToChords()
@@ -45,8 +43,6 @@ class ConvertFragment : Fragment() {
             }
         })
 
-        return binding.root
     }
-
 }
 
