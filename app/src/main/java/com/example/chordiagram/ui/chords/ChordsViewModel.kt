@@ -1,63 +1,67 @@
 package com.example.chordiagram.ui.chords
 
-import android.app.Application
 import androidx.lifecycle.*
-import com.example.chordiagram.database.Chord
-import com.example.chordiagram.database.Chordbase
+import com.example.chordiagram.data.Chord
+import com.example.chordiagram.data.ChordDao
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.lang.IllegalArgumentException
 import java.util.*
+import javax.inject.Inject
 
-class ChordsViewModel(private val app: Application, private val chordsString: String) :
-    ViewModel() {
-
-    private val chordsList = splitToChords(chordsString)
+@HiltViewModel
+class ChordsViewModel @Inject constructor(
+    private val chordDao: ChordDao,
+    private val savedStateHandle: SavedStateHandle
+) : ViewModel() {
 
     private val _chords = MutableLiveData<List<Chord>>()
-    val chords = Transformations.map(_chords) {
-        it.sortedWith { chord1, chord2 ->
-            chordsList.indexOf(chord1.chordName) - chordsList.indexOf(chord2.chordName)
-        }
+    val chords: LiveData<List<Chord>>
+        get() = _chords
+
+    val empty = Transformations.map(_chords) {
+        it.isNullOrEmpty()
     }
 
-     val empty = Transformations.map(_chords) {
-         it.isNullOrEmpty()
-     }
-
-    private val _loading = MutableLiveData<Boolean>()
-    val loading: LiveData<Boolean>
-        get() = _loading
-
-    init {
-        _loading.value = true
+    fun getFilteredChords(filter: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            _chords.postValue(Chordbase.getInstance(app.applicationContext).chordDao.let {
-                if (chordsString.isEmpty())
-                    it.getAllChords()
-                else {
-                    it.getRequestedChords(chordsList)
+            _chords.postValue(
+                getChords { true }!!
+            )
+        }
+    }
+
+    fun getSearchResults(query: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _chords.postValue(
+                getChords { it.chordName.contains(query, true) }!!
+            )
+        }
+    }
+
+    private suspend fun getChords(condition: (Chord) -> Boolean) = chordDao.getAllChords().filter { chord ->
+        condition(chord)
+    }
+
+    fun getRequestedChords(chordString: String) {
+        val chordsList = splitToChords(chordString)
+        viewModelScope.launch(Dispatchers.IO) {
+            _chords.postValue(
+                chordDao.getRequestedChords(chordsList).sortedWith { chord1, chord2 ->
+                    chordsList.indexOf(chord1.chordName) - chordsList.indexOf(chord2.chordName)
                 }
-            })
-            _loading.postValue(false)
+            )
         }
     }
 
-    private fun splitToChords(chords : String) : List<String> {
-        return chords.split(" ").toMutableList().map {
-            it.capitalize(Locale.ROOT)
+    private fun splitToChords(chords: String): List<String> {
+        return chords.split(" ").toMutableList().map { chordName ->
+            chordName.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
         }
     }
 
-}
-
-class ChordsViewModelFactory(private val app: Application, private val chordsString: String) :
-    ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-
-        if (modelClass.isAssignableFrom(ChordsViewModel::class.java))
-            return ChordsViewModel(app, chordsString) as T
-
-        throw IllegalArgumentException("Unrecognized ViewModel")
+    companion object {
+        const val FILTER_KEY = "FILTER"
+        const val SHOW_ALL = 0
     }
 }

@@ -1,44 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.chords.ChordsFragment">
-    <data>
-        <import type="android.view.View"/>
-        <variable
-            name="viewModel"
-            type="com.example.chordiagram.ui.chords.ChordsViewModel" />
-    </data>
-    <FrameLayout
+    tools:context=".ui.chords.ChordsFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chord_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/chord_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            app:chordList="@{viewModel.chords}"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="4"
-            tools:itemCount="35"
-            tools:listitem="@layout/chord_list_item"/>
-
-        <TextView
-            android:id="@+id/empty_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="?textAppearanceHeadline5"
-            android:layout_gravity="center"
-            android:text="@string/empty_message"
-            android:visibility="@{viewModel.empty ? View.VISIBLE : View.GONE}"/>
-
-        <ProgressBar
-            android:id="@+id/loading_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:indeterminate="true"
-            android:visibility="@{viewModel.loading ? View.VISIBLE : View.GONE}"/>
-    </FrameLayout>
-</layout>
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="4"
+        tools:itemCount="35"
+        tools:listitem="@layout/chord_list_item"/>
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?textAppearanceHeadline5"
+        android:layout_gravity="center"
+        android:text="@string/empty_message"/>
+<!--    <ProgressBar-->
+<!--        android:id="@+id/loading_indicator"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:indeterminate="true"/>-->
+</FrameLayout>

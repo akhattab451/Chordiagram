@@ -1,8 +1,6 @@
 package com.example.chordiagram.ui
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.chordiagram.ui.chords.ChordsFragment
 import com.example.chordiagram.ui.convert.ConvertFragment

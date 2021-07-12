@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.chordiagram.database.Chord
+import com.example.chordiagram.data.Chord
 import com.example.chordiagram.databinding.ChordListItemBinding
 
 
@@ -22,10 +22,10 @@ class ChordsAdapter : ListAdapter<Chord, ChordsAdapter.ChordViewHolder>(ListItem
     }
 
     class ChordViewHolder(private val binding : ChordListItemBinding) : RecyclerView.ViewHolder(binding.root) {
-
         fun bind(chord : Chord) {
-            binding.chord = chord
-            binding.executePendingBindings()
+            val context = binding.chordImageView.context
+            val resId = context.resources.getIdentifier(/*chord.resourceName*/"ic_a", "drawable", context.packageName)
+            binding.chordImageView.setImageResource(resId)
         }
 
     }

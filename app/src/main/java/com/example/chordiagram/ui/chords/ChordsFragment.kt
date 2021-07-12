@@ -1,45 +1,100 @@
 package com.example.chordiagram.ui.chords
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import android.view.*
+import android.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import com.example.chordiagram.R
+import com.example.chordiagram.Utils
+import com.example.chordiagram.data.ChordModifier
 import com.example.chordiagram.databinding.ChordsFragmentBinding
-import com.example.chordiagram.ui.chords.ChordsFragmentArgs as ChordsFragmentArgs
+import dagger.hilt.android.AndroidEntryPoint
 
-
-class ChordsFragment : Fragment() {
-
+@AndroidEntryPoint
+class ChordsFragment : Fragment(R.layout.chords_fragment) {
     companion object {
-        fun newInstance() : ChordsFragment {
+        fun newInstance(): ChordsFragment {
             return ChordsFragment()
         }
     }
 
+    private val viewModel: ChordsViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val binding = ChordsFragmentBinding.inflate(inflater)
-        val application = requireNotNull(activity).application
+        val binding = ChordsFragmentBinding.bind(view)
 
-        val text = arguments?.let { ChordsFragmentArgs.fromBundle(it) }?.chordString
+        arguments?.getString("chordString").let {
+            if (it.isNullOrBlank()) {
+                setHasOptionsMenu(true)
+                viewModel.getFilteredChords(0)
+            }
+            else
+                viewModel.getRequestedChords(it)
+        }
 
-        val viewModelFactory = ChordsViewModelFactory(application, text ?: "")
-        val viewModel = ViewModelProvider(this, viewModelFactory).get(ChordsViewModel::class.java)
+        val adapter = ChordsAdapter()
+        binding.chordList.adapter = adapter
 
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = this
-        binding.chordList.adapter = ChordsAdapter()
+        viewModel.chords.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
 
-        return binding.root
+        viewModel.empty.observe(viewLifecycleOwner){
+            binding.emptyView.isVisible = it
+        }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.chords_menu, menu)
 
+        val searchItem = menu.findItem(R.id.action_search)
+        (searchItem.actionView as SearchView).apply {
+            queryHint = getString(R.string.search) + "... "
 
+            setOnSearchClickListener {
+                menu.findItem(R.id.action_filter).isVisible = false
+            }
+
+            setOnCloseListener {
+                Utils.hideKeyboard(requireActivity())
+                activity?.invalidateOptionsMenu()
+                return@setOnCloseListener true
+            }
+
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return true
+                }
+
+                override fun onQueryTextChange(query: String?): Boolean {
+                    if (query == null)
+                        return false
+
+                    viewModel.getSearchResults(query)
+                    return true
+                }
+            })
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        viewModel.getFilteredChords(
+            when(item.itemId) {
+                R.id.action_show_major -> ChordModifier.MAJOR.value
+                R.id.action_show_minor -> ChordModifier.MINOR.value
+                R.id.action_show_seven -> ChordModifier.SEVEN.value
+                R.id.action_show_diminished -> ChordModifier.DIMINISHED.value
+                R.id.action_show_augmented -> ChordModifier.AUGMENTED.value
+                R.id.action_show_six -> ChordModifier.SIX.value
+                R.id.action_show_nine -> ChordModifier.NINE.value
+                else -> ChordsViewModel.SHOW_ALL
+            }
+        )
+        return super.onOptionsItemSelected(item)
+    }
 }

@@ -5,14 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.chordiagram.NavigationDirections
 import com.example.chordiagram.R
 import com.example.chordiagram.Utils
 import com.example.chordiagram.databinding.ConvertFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ConvertFragment : Fragment(R.layout.convert_fragment) {
 
     companion object {
@@ -25,19 +27,16 @@ class ConvertFragment : Fragment(R.layout.convert_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = ConvertFragmentBinding.bind(view)
-        val convertViewModel = ViewModelProvider(this).get(ConvertViewModel::class.java)
+        val convertViewModel: ConvertViewModel by viewModels()
 
         binding.convertFab.setOnClickListener {
-            convertViewModel.navigateToChords()
+            val text = binding.convertEditText.text.toString()
+            convertViewModel.navigateToChords(text)
         }
 
         convertViewModel.eventNavigateToChords.observe(viewLifecycleOwner, {
-            if (it) {
-                val text = binding.convertEditText.text.toString()
-
-                if (text.isNotBlank())
-                    findNavController().navigate(NavigationDirections.actionGlobalChordsFragment(text))
-
+            if (!it.isNullOrBlank()) {
+                findNavController().navigate(NavigationDirections.actionGlobalChordsFragment(it))
                 Utils.hideKeyboard(requireActivity())
                 convertViewModel.navigateToChordsCompleted()
             }

@@ -9,11 +9,17 @@
         <item name="colorOnSecondary">@color/secondaryTextColor</item>
 
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:itemTextAppearance">@style/MenuItemTextAppearance</item>
+
     </style>
 
     <style name="Theme.Chordiagram.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="MenuItemTextAppearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
 
     <style name="Theme.Chordiagram.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

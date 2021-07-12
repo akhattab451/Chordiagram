@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_search"
+        android:orderInCategory="2"
+        android:title="@string/search"
+        android:icon="@drawable/ic_search"
+        app:showAsAction="always"
+        app:actionViewClass="android.widget.SearchView" />
+    <item
+        android:id="@+id/action_filter"
+        android:orderInCategory="1"
+        android:title="@string/filter"
+        android:icon="@drawable/ic_filter"
+        app:showAsAction="ifRoom"
+        app:actionViewClass="android.widget.AbsListView">
+        <menu>
+            <item
+                android:id="@+id/action_show_all"
+                android:title="@string/show_all"/>
+            <item
+                android:id="@+id/action_show_major"
+                android:title="@string/major"/>
+            <item
+                android:id="@+id/action_show_minor"
+                android:title="@string/minor"/>
+            <item
+                android:id="@+id/action_show_seven"
+                android:title="@string/seven"/>
+            <item
+                android:id="@+id/action_show_diminished"
+                android:title="@string/diminished"/>
+            <item
+                android:id="@+id/action_show_augmented"
+                android:title="@string/augmented"/>
+            <item
+                android:id="@+id/action_show_six"
+                android:title="@string/six"/>
+            <item
+                android:id="@+id/action_show_nine"
+                android:title="@string/nine"/>
+        </menu>
+    </item>
+</menu>
