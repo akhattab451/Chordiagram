@@ -2,7 +2,7 @@ package com.example.chordiagram.data
 
 import androidx.room.TypeConverter
 
-class ModifierConverter {
+class Converters {
     @TypeConverter
     fun toModifier(value: String) = enumValueOf<ChordModifier>(value)
 

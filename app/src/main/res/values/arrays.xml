@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="filter_strings">
+        <item>Show All</item>
+        <item>Major</item>
+        <item>Minor</item>
+        <item>Six</item>
+        <item>Seven</item>
+        <item>Diminished</item>
+        <item>Augmented</item>
+        <item>Nine</item>
+    </string-array>
+
+    <integer-array name="filter_ids">
+        <item>0</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+    </integer-array>
+</resources>

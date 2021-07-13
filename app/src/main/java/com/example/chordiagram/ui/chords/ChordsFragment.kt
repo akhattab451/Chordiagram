@@ -1,5 +1,7 @@
 package com.example.chordiagram.ui.chords
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
@@ -10,6 +12,10 @@ import com.example.chordiagram.R
 import com.example.chordiagram.Utils
 import com.example.chordiagram.data.ChordModifier
 import com.example.chordiagram.databinding.ChordsFragmentBinding
+import com.example.chordiagram.ui.chords.ChordsViewModel.Companion.CHORD_STRING_TAG
+import com.example.chordiagram.ui.chords.ChordsViewModel.Companion.CONVERT
+import com.example.chordiagram.ui.chords.ChordsViewModel.Companion.SEARCH
+import com.example.chordiagram.ui.chords.ChordsViewModel.Companion.SHOW_ALL
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,13 +33,13 @@ class ChordsFragment : Fragment(R.layout.chords_fragment) {
 
         val binding = ChordsFragmentBinding.bind(view)
 
-        arguments?.getString("chordString").let {
+        arguments?.getString(CHORD_STRING_TAG).let {
             if (it.isNullOrBlank()) {
                 setHasOptionsMenu(true)
-                viewModel.getFilteredChords(0)
+                setFilter(SHOW_ALL)
             }
             else
-                viewModel.getRequestedChords(it)
+                setFilter(CONVERT)
         }
 
         val adapter = ChordsAdapter()
@@ -48,6 +54,10 @@ class ChordsFragment : Fragment(R.layout.chords_fragment) {
         }
     }
 
+    private fun setFilter(filter: Int) {
+        viewModel.setFilter(filter)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.chords_menu, menu)
@@ -55,17 +65,14 @@ class ChordsFragment : Fragment(R.layout.chords_fragment) {
         val searchItem = menu.findItem(R.id.action_search)
         (searchItem.actionView as SearchView).apply {
             queryHint = getString(R.string.search) + "... "
-
             setOnSearchClickListener {
                 menu.findItem(R.id.action_filter).isVisible = false
             }
-
             setOnCloseListener {
                 Utils.hideKeyboard(requireActivity())
                 activity?.invalidateOptionsMenu()
                 return@setOnCloseListener true
             }
-
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     return true
@@ -74,8 +81,7 @@ class ChordsFragment : Fragment(R.layout.chords_fragment) {
                 override fun onQueryTextChange(query: String?): Boolean {
                     if (query == null)
                         return false
-
-                    viewModel.getSearchResults(query)
+                    viewModel.searchChords(query)
                     return true
                 }
             })
@@ -83,18 +89,19 @@ class ChordsFragment : Fragment(R.layout.chords_fragment) {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        viewModel.getFilteredChords(
-            when(item.itemId) {
-                R.id.action_show_major -> ChordModifier.MAJOR.value
-                R.id.action_show_minor -> ChordModifier.MINOR.value
-                R.id.action_show_seven -> ChordModifier.SEVEN.value
-                R.id.action_show_diminished -> ChordModifier.DIMINISHED.value
-                R.id.action_show_augmented -> ChordModifier.AUGMENTED.value
-                R.id.action_show_six -> ChordModifier.SIX.value
-                R.id.action_show_nine -> ChordModifier.NINE.value
-                else -> ChordsViewModel.SHOW_ALL
-            }
-        )
+        if (item.itemId == R.id.action_filter)
+            createDialog()
+
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun createDialog() {
+        val filterArray: Array<String> = resources.getStringArray(R.array.filter_strings)
+        val filterArrayId: IntArray = resources.getIntArray(R.array.filter_ids)
+        return AlertDialog.Builder(context).setItems(filterArray) { dialog, which ->
+            setFilter(filterArrayId[which])
+            dialog.dismiss()
+        }.create().show()
+
     }
 }

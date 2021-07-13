@@ -6,8 +6,9 @@ import androidx.room.TypeConverters
 
 
 @Database(entities = [Chord::class], version = 5, exportSchema = false)
-@TypeConverters(ModifierConverter::class)
+@TypeConverters(Converters::class)
 abstract class Chordbase : RoomDatabase() {
+
     abstract val chordDao: ChordDao
 
 }
