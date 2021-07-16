@@ -8,6 +8,7 @@ import android.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.example.chordiagram.R
 import com.example.chordiagram.Utils
 import com.example.chordiagram.data.ChordModifier

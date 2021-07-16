@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey
 data class Chord(
     @PrimaryKey(autoGenerate = true) val id : Int,
     @ColumnInfo(name = "chord_name") val chordName : String,
+    @ColumnInfo(name = "other_name") val otherName : String?,
     @ColumnInfo(name = "chord_modifier") val chordModifier: ChordModifier,
     @ColumnInfo(name = "resource_name") val resourceName : String)
 

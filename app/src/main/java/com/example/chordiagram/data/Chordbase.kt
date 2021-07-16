@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 
-@Database(entities = [Chord::class], version = 5, exportSchema = false)
+@Database(entities = [Chord::class], version = 6, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class Chordbase : RoomDatabase() {
 
