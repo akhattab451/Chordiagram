@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.chordiagram">
+    package="com.akhttp.chordiagram">
 
     <application
-        android:name=".ChordiagramApplication"
+        android:name="com.akhttp.chordiagram.ChordiagramApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Chordiagram">
         <activity
-            android:name=".ui.MainActivity"
+            android:name="com.akhttp.chordiagram.ui.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.Chordiagram.NoActionBar">
             <intent-filter>

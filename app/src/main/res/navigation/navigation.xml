@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/chordsFragment"
-        android:name="com.example.chordiagram.ui.chords.ChordsFragment"
+        android:name="com.akhttp.chordiagram.ui.requested.RequestedFragment"
         android:label="Chords"
         tools:layout="@layout/chords_fragment">
         <argument
@@ -19,14 +19,12 @@
         app:destination="@id/chordsFragment" />
     <fragment
         android:id="@+id/tabsFragment"
-        android:name="com.example.chordiagram.ui.tabs.TabsFragment"
+        android:name="com.akhttp.chordiagram.ui.tabs.TabsFragment"
         android:label="Chordiagram"
-        tools:layout="@layout/tabs_fragment">
-        <action
-            android:id="@+id/action_tabsFragment_to_chordsFragment"
-            app:destination="@id/chordsFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/tabsFragment"
-            app:popUpToInclusive="false" />
-    </fragment>
+        tools:layout="@layout/tabs_fragment"/>
+    <fragment
+        android:id="@+id/allChordsFragment"
+        android:name="com.akhttp.chordiagram.ui.chords.ChordsFragment"
+        android:label="Chords"
+        tools:layout="@layout/chords_fragment" />
 </navigation>

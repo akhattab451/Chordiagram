@@ -13,13 +13,25 @@
                       <LayoutPositions />
                     </value>
                   </entry>
+                  <entry key="allChordsFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="473" />
+                            <option name="y" value="-986" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="chordsFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="502" />
-                            <option name="y" value="-692" />
+                            <option name="x" value="466" />
+                            <option name="y" value="-663" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -30,18 +42,9 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="221" />
-                            <option name="y" value="-665" />
+                            <option name="x" value="203" />
+                            <option name="y" value="-651" />
                           </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_tabsFragment_to_chordsFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
